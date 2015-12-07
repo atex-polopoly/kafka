@@ -13,4 +13,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-ps ax | grep -i 'zookeeper' | grep -v grep | awk '{print $1}' | xargs kill -SIGINT
+# ps ax | grep -i 'zookeeper' | grep -v grep | awk '{print $1}' | xargs kill -SIGINT
+PID=$(jps -lm | awk '/org.apache.zookeeper.server.quorum.QuorumPeerMain/ {print $1}')
+
+if [[ "$(uname -a)" =~ "CYGWIN" ]]
+then
+    taskkill /f /pid $PID
+else
+    kill $PID
+fi
+

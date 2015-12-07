@@ -39,41 +39,49 @@ if [ -z "$SCALA_BINARY_VERSION" ]; then
 	SCALA_BINARY_VERSION=2.10
 fi
 
+# System depentent classpath entry separator. (Bash extension.)
+if [[ "$(uname -a)" =~ "CYGWIN" ]]
+then
+    SEP=";"
+else
+    SEP=":"
+fi
+
 # run ./gradlew copyDependantLibs to get all dependant jars in a local dir
 for file in $base_dir/core/build/dependant-libs-${SCALA_VERSION}*/*.jar;
 do
-  CLASSPATH=$CLASSPATH:$file
+  CLASSPATH=$CLASSPATH$SEP$file
 done
 
 for file in $base_dir/examples/build/libs//kafka-examples*.jar;
 do
-  CLASSPATH=$CLASSPATH:$file
+  CLASSPATH=$CLASSPATH$SEP$file
 done
 
 for file in $base_dir/contrib/hadoop-consumer/build/libs//kafka-hadoop-consumer*.jar;
 do
-  CLASSPATH=$CLASSPATH:$file
+  CLASSPATH=$CLASSPATH$SEP$file
 done
 
 for file in $base_dir/contrib/hadoop-producer/build/libs//kafka-hadoop-producer*.jar;
 do
-  CLASSPATH=$CLASSPATH:$file
+  CLASSPATH=$CLASSPATH$SEP$file
 done
 
 for file in $base_dir/clients/build/libs/kafka-clients*.jar;
 do
-  CLASSPATH=$CLASSPATH:$file
+  CLASSPATH=$CLASSPATH$SEP$file
 done
 
 # classpath addition for release
 for file in $base_dir/libs/*.jar;
 do
-  CLASSPATH=$CLASSPATH:$file
+  CLASSPATH=$CLASSPATH$SEP$file
 done
 
 for file in $base_dir/core/build/libs/kafka_${SCALA_BINARY_VERSION}*.jar;
 do
-  CLASSPATH=$CLASSPATH:$file
+  CLASSPATH=$CLASSPATH$SEP$file
 done
 
 # JMX settings

@@ -13,4 +13,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-ps ax | grep -i 'kafka\.Kafka' | grep java | grep -v grep | awk '{print $1}' | xargs kill -SIGTERM
+#ps ax | grep -i 'kafka\.Kafka' | grep java | grep -v grep | awk '{print $1}' | xargs kill -SIGTERM
+
+PID=$(jps -lm | awk '/kafka.Kafka/ {print $1}')
+
+if [[ "$(uname -a)" =~ "CYGWIN" ]]
+then
+    taskkill /f /pid $PID
+else
+    kill $PID
+fi
+
