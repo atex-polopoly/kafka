@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -16,6 +16,7 @@
 # ps ax | grep -i 'zookeeper' | grep -v grep | awk '{print $1}' | xargs kill -SIGINT
 PID=$(jps -lm | awk '/org.apache.zookeeper.server.quorum.QuorumPeerMain/ {print $1}')
 
+# Bash extension...
 if [[ "$(uname -a)" =~ "CYGWIN" ]]
 then
     taskkill /f /pid $PID

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -17,6 +17,7 @@
 
 PID=$(jps -lm | awk '/kafka.Kafka/ {print $1}')
 
+# Bash extension...
 if [[ "$(uname -a)" =~ "CYGWIN" ]]
 then
     taskkill /f /pid $PID
