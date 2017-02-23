@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -13,15 +13,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#ps ax | grep -i 'kafka\.Kafka' | grep java | grep -v grep | awk '{print $1}' | xargs kill -SIGTERM
+PIDS=$(ps ax | grep -i 'kafka\.Kafka' | grep java | grep -v grep | awk '{print $1}')
 
-PID=$(jps -lm | awk '/kafka.Kafka/ {print $1}')
-
-# Bash extension...
-if [[ "$(uname -a)" =~ "CYGWIN" ]]
-then
-    taskkill /f /pid $PID
-else
-    kill $PID
+if [ -z "$PIDS" ]; then
+  echo "No kafka server to stop"
+  exit 1
+else 
+  kill -s TERM $PIDS
 fi
 
