@@ -1,0 +1,15 @@
+{
+    "name": "couch-kafka-connector-polopoly-changelist",
+    "config": {
+      "connector.class": "com.couchbase.connect.kafka.CouchbaseSourceConnector",
+      "tasks.max": "1",
+      "connection.cluster_address": "localhost",
+      "topic.name": "polopoly.changelist",
+      "connection.bucket": "cmbucket",
+      "connection.password": "cmpasswd",
+      "connection.timeout.ms": "2000",
+      "use_snapshots": false,
+      "dcp.message.converter.class": "com.atex.onecms.indexing.connector.ChangeListSerializer",
+      "event.filter.class": "com.atex.onecms.indexing.connector.HangerInfoFilter"
+    }
+}
